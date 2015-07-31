@@ -19,7 +19,7 @@
 
         var ageReg = /^\d{1,3}$/;
 
-        var nameReg = /^[A-z]{3,50}$/;
+        var nameReg = /^[A-z 0-9]{3,50}$/;
 
         //Check name
         if(elem.id == "first-name"){
