@@ -26,10 +26,10 @@
             if(elem.value != "" && nameReg.test(elem.value)){
                 removeClass(elem, "error");
                 addClass(elem, "valid");
-            }else{
-                removeClass(elem, "valid");
-                addClass(elem, "error");
+                return;
             }
+            removeClass(elem, "valid");
+            addClass(elem, "error");
         }
 
         //Check age
@@ -37,10 +37,10 @@
             if(elem.value != "" && ageReg.test(elem.value) && elem.value >= 6 && elem.value <= 100){
                 removeClass(elem, "error");
                 addClass(elem, "valid");
-            }else{
-                removeClass(elem, "valid");
-                addClass(elem, "error");
+                return;
             }
+            removeClass(elem, "valid");
+            addClass(elem, "error");
         }
 
 
@@ -49,15 +49,16 @@
 	function addClass(_elem, _class){
         var classes;
 
-        if(_elem.classList){
+        if(!_elem.classList){
             classes = _elem.classList.add(_class);
         }else{
             if(!_elem.className.length){
                classes = _elem.className = _class;
-            }else{
-                if(!hasClass(_elem, _class)){
-                   classes = _elem.className +=  " " + _class;
-                }
+               return;
+            }
+
+            if(!hasClass(_elem, _class)){
+               classes = _elem.className +=  " " + _class;
             }
         }
 
@@ -65,14 +66,10 @@
 	}
 
     function hasClass(_elem, _class){
-        if(_elem.className.length){
-            if(_elem.className.indexOf(_class) > -1){
-                return true;
-            }else{
-                return false;
-            }
-        } 
-                
+        if(_elem.className.length && _elem.className.indexOf(_class) > -1){
+            return true;
+        }
+        return false;                
 
     }
 
