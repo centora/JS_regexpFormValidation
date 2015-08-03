@@ -20,16 +20,27 @@
         var ageReg = /^\d{1,3}$/;
 
         var nameReg = /^[A-z 0-9]{3,50}$/;
+        var errorDiv = document.createElement('div');
+        addClass(errorDiv, "error-msg");
+        errorDiv.innerHTML = "Invalid value."
 
         //Check name
         if(elem.id == "first-name"){
             if(elem.value != "" && nameReg.test(elem.value)){
                 removeClass(elem, "error");
                 addClass(elem, "valid");
+                if(elem.parentNode.getElementsByClassName('error-msg').length){
+                    elem.parentNode.removeChild(elem.parentNode.getElementsByClassName('error-msg')[0]);
+                }
                 return;
             }
             removeClass(elem, "valid");
             addClass(elem, "error");
+            if(!elem.parentNode.getElementsByClassName('error-msg').length){
+                elem.parentNode.appendChild(errorDiv);
+                errorDiv.innerHTML += " The name should contains only letters and numbers."
+            }
+            
         }
 
         //Check age
@@ -37,10 +48,17 @@
             if(elem.value != "" && ageReg.test(elem.value) && elem.value >= 6 && elem.value <= 100){
                 removeClass(elem, "error");
                 addClass(elem, "valid");
+                if(elem.parentNode.getElementsByClassName('error-msg').length){
+                    elem.parentNode.removeChild(elem.parentNode.getElementsByClassName('error-msg')[0]);
+                }
                 return;
             }
             removeClass(elem, "valid");
             addClass(elem, "error");
+            if(!elem.parentNode.getElementsByClassName('error-msg').length){
+                elem.parentNode.appendChild(errorDiv);
+                errorDiv.innerHTML += " The age should contains only number from 6 to 100."
+            }
         }
 
 
